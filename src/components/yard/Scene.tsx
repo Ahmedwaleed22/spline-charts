@@ -1,10 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ComponentRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+
+/**
+ * Taken from the component rather than imported from three-stdlib.
+ *
+ * three-stdlib is a transitive dependency of drei, so importing it directly
+ * only resolves under a hoisted node_modules and fails under pnpm's isolated
+ * layout. Deriving the ref type keeps it correct on both, and keeps it in step
+ * with whatever version drei is actually using.
+ */
+type OrbitControlsImpl = ComponentRef<typeof OrbitControls>;
 import { useConsole } from "@/lib/console-state";
 import { dwellHex, type Block } from "@/lib/data";
 import { STAGE_PALETTE, useTheme, type StagePalette } from "@/lib/theme";
