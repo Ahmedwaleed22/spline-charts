@@ -39,9 +39,6 @@
   --tracking-caps: 0.045em;
   --tracking-tight: -0.01em;
 
-  /* Georgia ships with every desktop OS, so headings need no web font. */
-  --ff-display: Georgia, "Iowan Old Style", "Times New Roman", serif;
-
   /* Space: density 7/10: efficient without crowding */
   --sp-1: 4px;
   --sp-2: 8px;
@@ -74,7 +71,8 @@
   /* Layout */
   --shell: 1480px;
   --shell-prose: 720px;
-  --topbar-h: 56px;
+  /* Fallback only. The header measures itself into --header-h at runtime. */
+  --header-h: 162px;
 
   /* Dwell ramp: the exact steps painted on the containers in the 3D yard.
      Used for the stage legend so the key matches the model literally. */
@@ -356,10 +354,10 @@ button {
 }
 
 .display {
-  font-family: var(--ff-display);
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  line-height: 1.12;
+  font-family: var(--ff-display), system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
 }
 
 .num {
@@ -500,9 +498,9 @@ button {
 }
 
 .panel__title {
-  font-family: var(--ff-display);
+  font-family: var(--ff-display), system-ui, sans-serif;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   font-size: var(--fs-lg);
   line-height: 1.2;
 }
@@ -828,6 +826,9 @@ tr:focus-visible {
   position: sticky;
   top: 0;
   z-index: 60;
+  /* Opaque, deliberately. A translucent sticky header lets the page scroll
+     visibly through the navigation, which makes both unreadable. */
+  background: var(--surface);
   transition: box-shadow var(--dur) var(--ease);
 }
 
@@ -922,9 +923,7 @@ tr:focus-visible {
 /* ---- primary nav ---- */
 
 .navbar {
-  background: var(--glass);
-  backdrop-filter: blur(14px) saturate(1.5);
-  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  background: var(--surface);
   border-bottom: 1px solid var(--line);
 }
 
@@ -1036,9 +1035,9 @@ tr:focus-visible {
 }
 
 .brand__name {
-  font-family: var(--ff-display);
-  font-weight: 700;
-  letter-spacing: -0.015em;
+  font-family: var(--ff-display), system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.03em;
   font-size: var(--fs-xl);
   line-height: 1;
 }
@@ -1660,9 +1659,10 @@ canvas {
 }
 
 .principle__index {
-  font-family: var(--ff-display);
+  font-family: var(--ff-display), system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
   font-size: var(--fs-2xl);
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1;
   color: var(--line-strong);
 }
@@ -1773,9 +1773,10 @@ canvas {
 }
 
 .step__index {
-  font-family: var(--ff-display);
+  font-family: var(--ff-display), system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
   font-size: var(--fs-xl);
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1;
   color: var(--accent);
 }
@@ -1829,7 +1830,7 @@ canvas {
 
 .spec-intro {
   position: sticky;
-  top: calc(var(--topbar-h) + var(--sp-6));
+  top: calc(var(--header-h, 162px) + var(--sp-6));
 }
 
 .spec-intro__lede {
@@ -1865,10 +1866,10 @@ canvas {
 }
 
 .spec-row__term {
-  font-family: var(--ff-display);
+  font-family: var(--ff-display), system-ui, sans-serif;
   font-size: var(--fs-lg);
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   color: var(--ink);
   line-height: 1.25;
 }

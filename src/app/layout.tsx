@@ -1,16 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Roboto, Roboto_Mono } from "next/font/google";
+import { Lato, Roboto, Roboto_Mono } from "next/font/google";
 import { THEME_BOOT_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
 /**
  * Typeface roles.
  *
+ * Lato carries headings, at 700 and 900 where it has real presence.
  * Roboto takes the interface: body copy, labels, controls, table text.
  * Roboto Mono takes figures, so columns of numbers line up.
- * Georgia takes headings, declared in CSS rather than loaded, because it ships
- * with every desktop OS and costs nothing to use.
+ *
+ * All three are loaded through next/font, which self-hosts them and inlines
+ * the face declarations. A stylesheet @import from fonts.googleapis.com would
+ * block render on a third-party round trip and reintroduce the swap it avoids.
  */
+const lato = Lato({
+  variable: "--ff-display",
+  subsets: ["latin"],
+  weight: ["300", "400", "700", "900"],
+  display: "swap",
+});
+
 const roboto = Roboto({
   variable: "--ff-body",
   subsets: ["latin"],
@@ -83,7 +93,9 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
       </head>
-      <body className={`${roboto.variable} ${robotoMono.variable}`}>
+      <body
+        className={`${lato.variable} ${roboto.variable} ${robotoMono.variable}`}
+      >
         <a className="skip-link" href="#console">
           Skip to console
         </a>
