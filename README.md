@@ -6,7 +6,7 @@ charts. Stack height reads ground slots in use, stack colour reads mean dwell
 time, and every block in the model has a matching row in the manifest table
 below it.
 
-![Yard view](docs/yard.png)
+![Yard view](docs/landing-page.png)
 
 ## What it demonstrates
 
